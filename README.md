@@ -70,4 +70,4 @@
 ---
 
 ## API 명세
-
+API 명세는 [API Documentation](./docs/API_DOCUMENTATION.md)에서 확인할 수 있습니다.
