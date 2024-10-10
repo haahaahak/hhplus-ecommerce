@@ -40,5 +40,25 @@
 ### 주문 / 결제
 ![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/diagram/order.puml)
 
-### 상품 조회 / 상위 상품 조회
+### 상품 조회
 ![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/diagram/product.puml)
+
+### 상위 상품 조회
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/diagram/topSelling.puml)
+
+---
+
+## 플로우 차트
+
+### 잔액 충전 / 조회
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/flowChart/balance.puml)
+
+### 주문 / 결제
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/flowChart/order.puml)
+
+### 상품 조회
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/flowChart/product.puml)
+
+### 상위 상품 조회
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/flowChart/topSelling.puml)
+
