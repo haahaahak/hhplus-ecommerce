@@ -6,7 +6,7 @@ participant "OrderHistoryService"
 participant "OrderHistoryRepository"
 
 == TOP 5 상품 목록 조회 ==
-사용자 -> OrderHistoryController : GET /history/top-selling
+사용자 -> OrderHistoryController : GET /history/popular
 OrderHistoryController -> OrderHistoryService : 상위 판매 상품 조회 요청
 
 == 3일간 주문 이력 조회 ==
