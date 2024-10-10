@@ -1,0 +1,54 @@
+@startuml
+
+entity "User" as user {
+  +id : BIGINT [PK]
+  --
+  balance : DECIMAL
+}
+
+entity "Product" as product {
+  +id : BIGINT [PK]
+  --
+  name : VARCHAR
+  price : DECIMAL
+  stock_quantity : INT
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "Order" as order {
+  +id : BIGINT [PK]
+  --
+  user_id : BIGINT [FK]
+  total_amount : DECIMAL
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "OrderItem" as orderItem {
+  +id : BIGINT [PK]
+  --
+  order_id : BIGINT [FK]
+  product_id : BIGINT [FK]
+  quantity : INT
+  price : DECIMAL
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "OrderHistory" as orderHistory {
+  +id : BIGINT [PK]
+  --
+  product_id : BIGINT [FK]
+  order_count : INT
+  order_date : DATE
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+user ||--o{ order : "주문한다"
+order ||--o{ orderItem : "포함한다"
+product ||--o{ orderItem : "포함된다"
+product ||--o{ orderHistory : "기록된다"
+
+@enduml
