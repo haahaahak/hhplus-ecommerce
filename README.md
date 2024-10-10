@@ -44,7 +44,7 @@
 ![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/diagram/product.puml)
 
 ### 상위 상품 조회
-![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/diagram/topSelling.puml)
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/diagram/popular.puml)
 
 ---
 
@@ -60,5 +60,5 @@
 ![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/flowChart/product.puml)
 
 ### 상위 상품 조회
-![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/flowChart/topSelling.puml)
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/flowChart/popular.puml)
 
