@@ -1,0 +1,23 @@
+@startuml
+
+start
+:사용자 주문 요청;
+:재고 확인;
+
+if (재고 충분?) then (Yes)
+    :잔액 확인;
+    if (잔액 충분?) then (Yes)
+        :결제 처리;
+        :재고 차감;
+        :주문 이력 데이터 추가(통계용);
+        :주문 완료;
+    else (No)
+        :잔액 부족 알림;
+    endif
+else (No)
+    :재고 부족 알림;
+endif
+
+stop
+
+@enduml

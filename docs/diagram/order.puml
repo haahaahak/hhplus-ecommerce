@@ -1,0 +1,53 @@
+@startuml
+actor 사용자
+
+participant "OrderController"
+participant "OrderFacade"
+participant "OrderService"
+participant "BalanceService"
+participant "ProductService"
+participant "OrderHistoryService"
+participant "BalanceRepository"
+participant "ProductRepository"
+participant "OrderHistoryRepository"
+participant "DataPlatform"
+
+사용자 -> OrderController : POST /order (userId, products[productId, quantity])
+OrderController -> OrderFacade : 주문 처리 요청 (userId, products[productId, quantity])
+
+== 재고 및 잔액 확인 ==
+OrderFacade -> ProductService : 상품 재고 확인 요청 (products[productId, quantity])
+ProductService -> ProductRepository : 재고 조회 (productId, quantity)
+ProductRepository -> ProductService : 재고 정보 반환 (availableQuantity)
+ProductService -> OrderFacade : 재고 정보 반환 (availableQuantity)
+
+OrderFacade -> BalanceService : 잔액 확인 요청 (userId)
+BalanceService -> BalanceRepository : 잔액 조회 (userId)
+BalanceRepository -> BalanceService : 잔액 정보 반환 (currentBalance)
+BalanceService -> OrderFacade : 잔액 정보 반환 (currentBalance)
+
+== 결제 및 재고 차감 ==
+OrderFacade -> BalanceService : 잔액 차감 요청 (userId, totalAmount)
+BalanceService -> BalanceRepository : 잔액 차감 (userId, newBalance)
+BalanceRepository -> BalanceService : 잔액 차감 완료
+BalanceService -> OrderFacade : 잔액 차감 완료
+
+OrderFacade -> ProductService : 재고 차감 요청 (productId, quantity)
+ProductService -> ProductRepository : 재고 차감 (productId, quantity)
+ProductRepository -> ProductService : 재고 차감 완료
+ProductService -> OrderFacade : 재고 차감 완료
+
+== 주문 이력 저장 ==
+OrderFacade -> OrderHistoryService : 주문 이력 데이터 추가 요청
+OrderHistoryService -> OrderHistoryRepository : 주문 이력 저장
+OrderHistoryRepository -> OrderHistoryService : 주문 이력 저장 완료
+OrderHistoryService -> OrderFacade : 주문 이력 저장 완료
+
+== 데이터 플랫폼 전송 ==
+OrderFacade -> DataPlatform : 주문 정보 전송
+DataPlatform -> OrderFacade : 전송 완료
+
+OrderFacade -> OrderController : 주문 완료
+OrderController -> 사용자 : 주문 완료 응답
+
+@enduml

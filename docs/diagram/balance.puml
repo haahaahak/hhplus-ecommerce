@@ -1,0 +1,34 @@
+@startuml
+
+actor 사용자
+participant "BalanceController"
+participant "BalanceService"
+participant "BalanceRepository"
+
+== 잔액 충전 API ==
+사용자 -> BalanceController : POST /balance/charge (userId, amount)
+BalanceController -> BalanceService : 잔액 충전 요청 (userId, amount)
+
+== 충전 금액 검증 ==
+BalanceService -> BalanceService : 충전 금액 > 5000 검증
+
+alt 금액이 5000 이상일 경우
+    BalanceService -> BalanceRepository : 잔액 조회 (userId)
+    BalanceRepository -> BalanceService : 현재 잔액 반환
+    BalanceService -> BalanceRepository : 충전 금액 더한 후 잔액 업데이트 (userId, newAmount)
+    BalanceService -> BalanceController : 충전 완료
+    BalanceController -> 사용자 : 충전 완료 응답
+else 금액이 5000 미만일 경우
+    BalanceService -> BalanceController : 잘못된 금액 오류 응답
+    BalanceController -> 사용자 : 오류 응답
+end
+
+== 잔액 조회 API ==
+사용자 -> BalanceController : GET /balance/{userId}
+BalanceController -> BalanceService : 잔액 조회 요청 (userId)
+BalanceService -> BalanceRepository : 잔액 조회
+BalanceRepository -> BalanceService : 잔액 정보 반환
+BalanceService -> BalanceController : 잔액 정보 반환
+BalanceController -> 사용자 : 잔액 정보 응답
+
+@enduml
