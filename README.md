@@ -62,3 +62,12 @@
 ### 상위 상품 조회
 ![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-5/docs/flowChart/popular.puml)
 
+---
+
+## ERD 설계
+![class-diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/haahaahak/hhplus-ecommerce/STEP-6/docs/erd/erd.puml)
+
+---
+
+## API 명세
+
