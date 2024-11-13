@@ -16,9 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import hhplus.ecommerce.user.domain.dto.UserDomain;
 import hhplus.ecommerce.user.infra.entity.User;
 import hhplus.ecommerce.user.infra.repository.UserRepository;
-import hhplus.ecommerce.user.interfaces.response.UserResponse;
 
 class UserServiceTest {
 
@@ -49,11 +49,11 @@ class UserServiceTest {
 		when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
 		// when
-		UserResponse response = userService.getBalance(userId);
+		UserDomain domain = userService.getBalance(userId);
 
 		// then
-		assertNotNull(response);
-		assertEquals(1000L, response.getBalance());
+		assertNotNull(domain);
+		assertEquals(1000L, domain.getBalance());
 		verify(userRepository, times(1)).findById(userId);
 	}
 

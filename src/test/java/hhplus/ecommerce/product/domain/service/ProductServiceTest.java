@@ -3,6 +3,7 @@ package hhplus.ecommerce.product.domain.service;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -15,10 +16,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import hhplus.ecommerce.product.domain.dto.ProductDomain;
+import hhplus.ecommerce.product.domain.dto.ProductListDomain;
 import hhplus.ecommerce.product.infra.entity.Product;
 import hhplus.ecommerce.product.infra.repository.ProductRepository;
-import hhplus.ecommerce.product.interfaces.response.ProductResponse;
 
 class ProductServiceTest {
 
@@ -35,6 +41,40 @@ class ProductServiceTest {
 
 	static Stream<Long> invalidProductId() {
 		return Stream.of(null, -1L, 0L);
+	}
+
+	@Test
+	@DisplayName("상품 목록 조회")
+	void getProducts() {
+		// given
+		Product product1 = Product.builder()
+			.id(1L)
+			.name("Product A")
+			.price(10000L)
+			.stock(50)
+			.build();
+		Product product2 = Product.builder()
+			.id(2L)
+			.name("Product B")
+			.price(20000L)
+			.stock(30)
+			.build();
+		List<Product> productList = List.of(product1, product2);
+
+		Pageable pageable = PageRequest.of(0, 10);
+		Page<Product> productPage = new PageImpl<>(productList, pageable, productList.size());
+
+		when(productRepository.findAll(pageable)).thenReturn(productPage);
+
+		// when
+		Page<ProductListDomain> domain = productService.getProducts(pageable);
+
+		// then
+		assertNotNull(domain);
+		assertEquals(2, domain.getContent().size());
+		assertEquals("Product A", domain.getContent().get(0).getName());
+		assertEquals("Product B", domain.getContent().get(1).getName());
+		verify(productRepository, times(1)).findAll(pageable);
 	}
 
 	@Test
@@ -56,14 +96,14 @@ class ProductServiceTest {
 		when(productRepository.findById(productId)).thenReturn(Optional.of(product));
 
 		// when
-		ProductResponse response = productService.getProduct(productId);
+		ProductDomain domain = productService.getProduct(productId);
 
 		// then
-		assertNotNull(response);
-		assertEquals(productId, response.getId());
-		assertEquals(name, response.getName());
-		assertEquals(price, response.getPrice());
-		assertEquals(stock, response.getStock());
+		assertNotNull(domain);
+		assertEquals(productId, domain.getId());
+		assertEquals(name, domain.getName());
+		assertEquals(price, domain.getPrice());
+		assertEquals(stock, domain.getStock());
 		verify(productRepository, times(1)).findById(productId);
 	}
 

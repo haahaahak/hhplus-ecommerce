@@ -4,9 +4,9 @@ import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
+import hhplus.ecommerce.user.domain.dto.UserDomain;
 import hhplus.ecommerce.user.infra.entity.User;
 import hhplus.ecommerce.user.infra.repository.UserRepository;
-import hhplus.ecommerce.user.interfaces.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -15,8 +15,8 @@ public class UserService {
 
 	private final UserRepository userRepository;
 
-	public UserResponse getBalance(Long userId) {
-		return findById(userId).toDomain().toResponse();
+	public UserDomain getBalance(Long userId) {
+		return findById(userId).toDomain();
 	}
 
 	public void chargeBalance(Long userId, Long amount) {

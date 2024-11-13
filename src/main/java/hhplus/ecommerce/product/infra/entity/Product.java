@@ -1,6 +1,7 @@
 package hhplus.ecommerce.product.infra.entity;
 
 import hhplus.ecommerce.product.domain.dto.ProductDomain;
+import hhplus.ecommerce.product.domain.dto.ProductListDomain;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -35,6 +36,15 @@ public class Product {
 
 	public ProductDomain toDomain() {
 		return ProductDomain.builder()
+			.id(this.id)
+			.name(this.name)
+			.price(this.price)
+			.stock(this.stock)
+			.build();
+	}
+
+	public ProductListDomain toListDomain() {
+		return ProductListDomain.builder()
 			.id(this.id)
 			.name(this.name)
 			.price(this.price)

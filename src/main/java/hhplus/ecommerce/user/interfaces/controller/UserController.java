@@ -26,7 +26,7 @@ public class UserController implements SwaggerUserController {
 	@GetMapping("/{id}/balance")
 	@ResponseStatus(HttpStatus.OK)
 	public UserResponse getBalance(@PathVariable Long id) {
-		return userService.getBalance(id);
+		return userService.getBalance(id).toResponse();
 	}
 
 	@Override
