@@ -32,6 +32,6 @@ public class UserService {
 		}
 
 		return userRepository.findById(userId)
-			.orElseThrow(() -> new NoSuchElementException("사용자 ID : " + userId + "을(를) 찾을 수 없습니다."));
+			.orElseThrow(() -> new NoSuchElementException("사용자 ID: " + userId + "을(를) 찾을 수 없습니다."));
 	}
 }
