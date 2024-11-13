@@ -12,7 +12,11 @@ public class UserChargeRequest {
 	private final Long amount;
 
 	@Builder
-	protected UserChargeRequest(final Long amount) {
+	protected UserChargeRequest(Long amount) {
 		this.amount = amount;
+	}
+
+	protected UserChargeRequest() {
+		this.amount = null;
 	}
 }

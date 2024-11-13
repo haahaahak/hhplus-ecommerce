@@ -33,6 +33,7 @@ public class UserController implements SwaggerUserController {
 	@PatchMapping("/{id}/charge")
 	@ResponseStatus(HttpStatus.OK)
 	public void chargeBalance(@PathVariable Long id, @Valid @RequestBody UserChargeRequest request) {
+		System.out.println("여기?" + request);
 		userService.chargeBalance(id, request.getAmount());
 	}
 }
