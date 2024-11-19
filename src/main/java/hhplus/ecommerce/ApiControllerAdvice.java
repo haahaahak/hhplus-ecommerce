@@ -1,4 +1,4 @@
-package hhplus.ecommerce.common;
+package hhplus.ecommerce;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,4 +41,10 @@ public class ApiControllerAdvice {
         ErrorResponse errorResponse = new ErrorResponse(status.value(), status.name(), message);
         return new ResponseEntity<>(errorResponse, status);
     }
+
+    public record ErrorResponse(
+        int status,
+        String error,
+        String message
+    ) {}
 }
