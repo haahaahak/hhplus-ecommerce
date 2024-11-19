@@ -1,7 +1,8 @@
-package hhplus.ecommerce.common;
+package hhplus.ecommerce;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,12 +28,23 @@ public class ApiControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
-        return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 에러가 발생했습니다.");
+        return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "서버에서 에러가 발생 했습니다.");
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
     // 공통적으로 에러 응답을 생성하는 메서드
     private ResponseEntity<ErrorResponse> buildErrorResponse(HttpStatus status, String message) {
-        ErrorResponse errorResponse = new ErrorResponse(status.value(), message);
+        ErrorResponse errorResponse = new ErrorResponse(status.value(), status.name(), message);
         return new ResponseEntity<>(errorResponse, status);
     }
+
+    public record ErrorResponse(
+        int status,
+        String error,
+        String message
+    ) {}
 }

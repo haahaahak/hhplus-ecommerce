@@ -1,0 +1,55 @@
+erDiagram
+    User {
+        BIGINT id PK
+        BIGINT balance
+    }
+
+    UserBalanceHistory {
+        BIGINT id PK
+        BIGINT user_id
+        BIGINT amount
+        VARCHAR type
+        TIMESTAMP created_at
+    }
+
+    Cart {
+        BIGINT id PK
+        BIGINT user_id
+    }
+
+    CartItem {
+        BIGINT id PK
+        BIGINT cart_id
+        BIGINT product_id
+        INT quantity
+    }
+
+    Order {
+        BIGINT id PK
+        BIGINT user_id
+        BIGINT amount
+        VARCHAR status
+    }
+
+    OrderItem {
+        BIGINT id PK
+        BIGINT order_id
+        BIGINT product_id
+        INT quantity
+        BIGINT price
+    }
+
+    Product {
+        BIGINT id PK
+        VARCHAR name
+        BIGINT price
+        INT stock
+    }
+
+    User ||--o{ UserBalanceHistory : "충전/사용 기록"
+    User ||--o{ Cart : "장바구니"
+    Cart ||--o{ CartItem : "장바구니 상품"
+    User ||--o{ Order : "주문"
+    Order ||--o{ OrderItem : "주문 상품"
+    Product ||--o{ CartItem : "참조"
+    Product ||--o{ OrderItem : "참조"
